@@ -22,7 +22,7 @@ function draw.GenerateCircle(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVer
 	return tCircle
 end
 
-	-- Draws a filled circle
+-- Draws a filled circle
 function draw.DrawCircle(iPosX, iPosY, iRadius, iVertices)
     iPosX = iPosX or 0
     iPosY = iPosY or 0
@@ -40,9 +40,9 @@ function draw.DrawArc(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVertices)
     iRadius = iRadius or 100
     iStartAngle = iStartAngle or 0
     iEndAngle = iEndAngle or 360
-	iVertices = iVertices or 200
+    iVertices = iVertices or 200
 	
-	local tCircle = draw.GenerateCircle(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVertices)
+    local tCircle = draw.GenerateCircle(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVertices)
     surface.DrawPoly(tCircle)
 end
 
