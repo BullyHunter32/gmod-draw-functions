@@ -1,55 +1,48 @@
+local math 		= math
+local surface 	= surface
+
+function draw.GenerateCircle(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVertices)
+	local tCircle = {}
+	if iStartAngle ~= 0 or iEndAngle ~= 360 then
+		tCircle[1] = {x = iPosX, y = iPosY}
+	end
+
+	iStartAngle = iStartAngle - 90
+	iEndAngle = iEndAngle - 90
+
+	for i = iStartAngle, iEndAngle, 360 / iVertices do
+		tCircle[#tCircle + 1] =
+		{
+			x = iPosX + math.cos(math.rad(i)) * iRadius,
+			y = iPosY + math.sin(math.rad(i)) * iRadius
+		}
+	end
+
+	return tCircle
+end
+
 -- Draws a filled circle
-function draw.DrawCircle(iPosX, iPosY, iRadius, iVertices, bCache)
+function draw.DrawCircle(iPosX, iPosY, iRadius, iVertices)
     iPosX = iPosX or 0
     iPosY = iPosY or 0
     iRadius = iRadius or 100
     iVertices = iVertices or 200 -- the more vertices, the better the quality
     
-    local circle = {}
-    local i = 0
-    for ang = 1, 360, (360/iVertices) do
-        i = i + 1
-        circle[i] = {
-            x = iPosX + (math.cos(math.rad(ang))) * iRadius, 
-            y = iPosY + (math.sin(math.rad(ang))) * iRadius, 
-        }
-    end
-
-    if bCache then
-        return circle
-    end
-    
-    surface.DrawPoly(circle)
+    local tCircle = draw.GenerateCircle(iPosX, iPosY, iRadius, 0, 360, iVertices)
+    surface.DrawPoly(tCircle)
 end
 
 -- Draws a filled circle but with an angle, like a cut pie
-function draw.DrawArc(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, bCache)
+function draw.DrawArc(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVertices)
     iPosX = iPosX or 0
     iPosY = iPosY or 0
     iRadius = iRadius or 100
     iStartAngle = iStartAngle or 0
     iEndAngle = iEndAngle or 360
-
-    iEndAngle = iEndAngle - 90
-    iStartAngle = iStartAngle - 90
-
-    local circle = {
-        {x = iPosX, y = iPosY}
-    }
-    local i = 1
-    for ang = iStartAngle, iEndAngle do
-        i = i + 1
-        circle[i] = {
-            x = iPosX + (math.cos(math.rad(ang))) * iRadius,
-            y = iPosY + (math.sin(math.rad(ang))) * iRadius,
-        }
-    end
-
-    if bCache then
-        return circle
-    end
-
-    surface.DrawPoly(circle)
+    iVertices = iVertices or 200
+	
+    local tCircle = draw.GenerateCircle(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVertices)
+    surface.DrawPoly(tCircle)
 end
 
 local color_outline = Color(20, 20, 20, 100)
