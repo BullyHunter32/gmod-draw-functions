@@ -1,7 +1,6 @@
 local math 		= math
 local surface 	= surface
 
--- Draws a filled circle
 function draw.GenerateCircle(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, iVertices)
 	local tCircle = {}
 	if iStartAngle ~= 0 or iEndAngle ~= 360 then
