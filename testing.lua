@@ -4,6 +4,7 @@
 local background = draw.DrawCircle(120, ScrH() - 120, 75, nil, true)
 local innerBackground = draw.DrawCircle(120, ScrH() - 120, 75, nil, true)
 
+local scrw, scrh = ScrW(), ScrH()
 hook.Add("HUDPaint", "x", function()
 
     -- health
@@ -35,4 +36,19 @@ hook.Add("HUDPaint", "x", function()
 
     -- bouncy text
     draw.BouncingText("She Sells Sea Shells By The Sea Shore", "ChatFont", 500, 100, color_white, 1, 1, 7, 2)
+        
+    surface.SetDrawColor(255, 0, 0)
+    draw.QuadBezier(
+        Vector(0, scrh/2),
+        Vector(scrw/2, 0),
+        Vector(scrw, scrh/2)
+    )
+
+    surface.SetDrawColor(0, 255, 0)
+    draw.CubicBezier(
+        Vector(0, 0),
+        Vector(scrw, 0),
+        Vector(0, scrh),
+        Vector(scrw, scrh)
+    )
 end)
