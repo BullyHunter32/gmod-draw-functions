@@ -1,6 +1,6 @@
 # gmod-draw-functions
 extra drawing functions
-![image](https://user-images.githubusercontent.com/60613196/129462684-43d6458b-80b5-40d8-95f1-f413aa7211c3.png)
+![image](https://user-images.githubusercontent.com/60613196/131150304-2c0f79ac-7f67-4bc6-98ce-62c3003a6cbf.png)
 
 
 - draw.DrawCircle(iPosX = 0, iPosY = 0, iRadius = 100, iVertices = 200, bCache = nil)
@@ -14,3 +14,12 @@ extra drawing functions
 
 - draw.BouncingText(sText = "", sFont = "DermaLarge", iPosX = 0, iPosY = 0, tColor = Color(255, 255, 255, 255), iHorizAlign = 0, iVertAlign = 0, iAnimHeight = 20, iAnimSpeed = 1) 
   - Draws bouncing text (mexican wave sorta thing)
+
+- draw.QuadBezier(p0, p1, p2, step = 0.02)
+  - Each point should be a Vector2 and the step should be no more than 0.2
+
+- draw.CubicBezier(p0, p1, p2, p3, step = 0.02)
+  - Each point should be a Vector2 and the step should be no more than 0.2
+
+
+
