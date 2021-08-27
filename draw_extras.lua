@@ -1,3 +1,41 @@
+local function quadBezier(t, p0, p1, p2)
+	local l1 = Lerp(t, p0, p1)
+	local l2 = Lerp(t, p1, p2)
+	local quad = Lerp(t, l1, l2)
+	return quad
+end
+
+local function cubicBezier(t, p0, p1, p2, p3)
+	local l1 = Lerp(t, p0, p1)
+	local l2 = Lerp(t, p1, p2)
+	local l3 = Lerp(t, p2, p3)
+	local a = Lerp(t, l1, l2)
+	local b = Lerp(t, l2, l3)
+	local cubic = Lerp(t, a, b)
+	return cubic
+end
+
+-- Bezier curves
+function draw.QuadBezier(p0, p1, p2, step)
+    local old = p0
+    step = step or 0.02
+    for i = 0, 1, step do
+        local pos = quadBezier(i, p0, p1, p2)
+        surface.DrawLine(old.x, old.y, pos.x, pos.y)
+        old = pos
+    end
+end
+
+function draw.CubicBezier(p0, p1, p2, p3, step)
+    local old = p0
+    step = step or 0.02
+    for i = 0, 1, step do
+        local pos = cubicBezier(i, p0, p1, p2, p3)
+        surface.DrawLine(old.x, old.y, pos.x, pos.y)
+        old = pos
+    end
+end
+
 -- Draws a filled circle
 function draw.DrawCircle(iPosX, iPosY, iRadius, iVertices, bCache)
     iPosX = iPosX or 0
