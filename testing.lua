@@ -6,6 +6,7 @@ local innerBackground = draw.DrawCircle(120, ScrH() - 120, 75, nil, true)
 
 local scrw, scrh = ScrW(), ScrH()
 hook.Add("HUDPaint", "x", function()
+    draw.NoTexture() -- materials conflict with my polys :(
 
     -- health
     local hpRatio = math.min(LocalPlayer():Health()/LocalPlayer():GetMaxHealth(), 1)
