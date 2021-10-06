@@ -90,6 +90,54 @@ function draw.DrawArc(iPosX, iPosY, iRadius, iStartAngle, iEndAngle, bCache)
     surface.DrawPoly(circle)
 end
 
+function draw.DrawRing(iPosX, iPosY, iRadius, iThickness, iStartAngle, iEndAngle, tCachedCircle, tCachedRing)
+    local tCircle
+    local tRing
+
+    if istable(iPosX) and istable(iPosY) then
+        if not tCircle then
+            tCircle = iPosX
+        end 
+        if not tRing then
+            tRing = iPosY
+        end
+    end
+
+    if not tCircle then
+        if tCachedCircle then
+            tCircle = tCachedCircle
+        else
+            tCircle = draw.DrawCircle(iPosX, iPosY, iRadius - iThickness, nil, true)
+        end 
+    end
+
+
+    render.SetStencilWriteMask( 0xFF )
+	render.SetStencilTestMask( 0xFF )
+	render.SetStencilReferenceValue( 0 )
+	render.SetStencilCompareFunction( STENCIL_ALWAYS )
+	render.SetStencilPassOperation( STENCIL_KEEP )
+	render.SetStencilFailOperation( STENCIL_KEEP )
+	render.SetStencilZFailOperation( STENCIL_KEEP )
+	render.ClearStencil()
+    
+    render.SetStencilEnable(true)
+        render.SetStencilReferenceValue(1)
+        render.SetStencilFailOperation(STENCIL_REPLACE)
+        render.SetStencilCompareFunction(STENCIL_NEVER)
+        surface.DrawPoly(tCircle)
+        render.SetStencilCompareFunction(STENCIL_NOTEQUAL)
+        if tRing then
+            surface.DrawPoly(tRing)
+        elseif iStartAngle and iStartAngle ~= 0 or iEndAngle and iEndAngle ~= 0 then
+            draw.DrawArc(iPosX, iPosY, iRadius, iStartAngle, iEndAngle)
+        else
+            draw.DrawCircle(iPosX, iPosY, iRadius)
+        end
+    render.SetStencilEnable(false)
+end
+    
+
 local color_outline = Color(20, 20, 20, 100)
 function draw.DrawProgressBar(iPosX, iPosY, iWidth, iHeight, tColor, flRatio, tOutlineCol, bOutline)
     iPosX = iPosX or 0
