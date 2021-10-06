@@ -21,5 +21,6 @@ extra drawing functions
 - draw.CubicBezier(p0, p1, p2, p3, step = 0.02)
   - Each point should be a Vector2 and the step should be no more than 0.2
 
-
-
+- draw.DrawRing(iPosX, iPosY, iRadius, iThickness, iStartAngle, iEndAngle, tCachedMiddle, tCachedRing)
+- draw.DrawRing(tCachedMiddle, tCachedRing)
+  - The tCachedMiddle is returned by draw.DrawCircle, and the ring is returned by draw.DrawArc, should've probably not named it 'tCachedRing'
