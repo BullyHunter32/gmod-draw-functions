@@ -5,7 +5,24 @@ local background = draw.DrawCircle(120, ScrH() - 120, 75, nil, true)
 local innerBackground = draw.DrawCircle(120, ScrH() - 120, 75, nil, true)
 
 local scrw, scrh = ScrW(), ScrH()
-hook.Add("HUDPaint", "x", function()
+
+-- Cache middle of Spining Rings
+local midSpinRing = draw.DrawCircle(ScrW()/2, ScrH()/2, ScrH()*0.07, nil, true) -- why 0.7? because that's the radius of the circle minus the thickness of the ring
+
+-- static ring polys around the spnning one cause cool
+local topArc = draw.DrawArc(ScrW()*0.5, ScrH()*0.45, ScrH()*0.08, -45, 45, true)
+local topCenter = draw.DrawCircle(ScrW()*0.5, ScrH()*0.45, ScrH()*0.075, nil, true)
+
+local leftArc = draw.DrawArc(ScrW()*0.5 - (ScrH() * 0.05), ScrH()*0.5, ScrH()*0.08, -135, -45, true)
+local leftCenter = draw.DrawCircle(ScrW()*0.5 - (ScrH() * 0.05), ScrH()*0.5, ScrH()*0.075, nil, true)
+
+local bottomArc = draw.DrawArc(ScrW()*0.5, ScrH()*0.55, ScrH()*0.08, 135, 225, true)
+local bottomCenter = draw.DrawCircle(ScrW()*0.5, ScrH()*0.55, ScrH()*0.075, nil, true)
+
+local rightArc = draw.DrawArc(ScrW()*0.5 + (ScrH() * 0.05), ScrH()*0.5, ScrH()*0.08, 45, 135, true)
+local rightCenter = draw.DrawCircle(ScrW()*0.5 + (ScrH() * 0.05), ScrH()*0.5, ScrH()*0.075, nil, true)
+
+hook.Add("HUDPaint", "m", function()
     draw.NoTexture() -- materials conflict with my polys :(
 
     -- health
@@ -52,4 +69,13 @@ hook.Add("HUDPaint", "x", function()
         Vector(0, scrh),
         Vector(scrw, scrh)
     )
+
+    local startAng = (CurTime()*88)%360
+    draw.DrawRing(scrw*0.5, scrh*0.5, scrh*0.08, scrh*0.01, startAng, startAng + 90, midSpinRing)
+    draw.DrawRing(scrw*0.5, scrh*0.5, scrh*0.08, scrh*0.01, startAng + 180, startAng + 270, midSpinRing)
+
+    draw.DrawRing(topCenter, topArc)
+    draw.DrawRing(leftCenter, leftArc)
+    draw.DrawRing(bottomCenter, bottomArc)
+    draw.DrawRing(rightCenter, rightArc)
 end)
