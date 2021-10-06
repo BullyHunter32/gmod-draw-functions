@@ -1,6 +1,6 @@
 # gmod-draw-functions
 extra drawing functions
-![image](https://user-images.githubusercontent.com/60613196/131150304-2c0f79ac-7f67-4bc6-98ce-62c3003a6cbf.png)
+![image](https://user-images.githubusercontent.com/60613196/136292303-2663b8f3-8f0e-4765-8a41-d6a4ecfc9d2c.png)
 
 
 - draw.DrawCircle(iPosX = 0, iPosY = 0, iRadius = 100, iVertices = 200, bCache = nil)
