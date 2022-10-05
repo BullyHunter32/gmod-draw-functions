@@ -203,3 +203,85 @@ function draw.BouncingText(sText, sFont, iPosX, iPosY, tColor, iHorizAlign, iVer
         surface.DrawText(char)
     end
 end
+
+function draw.CreateRoundedBoxPoly(radius, x, y, w, h)
+    local poly = {}
+    local index = 1
+
+    poly[index] = {
+        x = x,    
+        y = y + radius,
+    }
+
+    for i = 0, 90 do
+        index = index + 1
+
+        local ang = i + 180
+        poly[index] = {
+            x = x + radius + (math.cos(math.rad(ang))*radius),    
+            y = y + radius + (math.sin(math.rad(ang))*radius),
+        }
+    end
+
+    index = index + 1
+    poly[index] = {
+        x = x + radius,    
+        y = y,
+    }
+
+    index = index + 1
+    poly[index] = {
+        x = x + w - radius, 
+        y = y
+    }
+
+    for i = 0, 90 do
+        index = index + 1
+
+        local ang = i - 90
+        poly[index] = {
+            x = x + w - radius + (math.cos(math.rad(ang))*radius),    
+            y = y + radius + (math.sin(math.rad(ang))*radius),
+        }
+    end
+
+    index = index + 1
+    poly[index] = {
+        x = x + w, 
+        y = y + radius
+    }
+
+    for i = 0, 90 do
+        index = index + 1
+
+        local ang = i - 0
+        poly[index] = {
+            x = x + w - radius + (math.cos(math.rad(ang))*radius),    
+            y = y + h - radius + (math.sin(math.rad(ang))*radius),
+        }
+    end
+
+    index = index + 1
+    poly[index] = {
+        x = x + radius, 
+        y = y + h
+    }
+
+    for i = 0, 90 do
+        index = index + 1
+
+        local ang = i + 90
+        poly[index] = {
+            x = x + radius + (math.cos(math.rad(ang))*radius),    
+            y = y + h - radius + (math.sin(math.rad(ang))*radius),
+        }
+    end
+
+    index = index + 1
+    poly[index] = {
+        x = x,
+        y = y + h - radius
+    }
+
+    return poly
+end
